@@ -1,0 +1,34 @@
+{
+  "name": "es6-illuminated",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/illuminated.js",
+  "scripts": {
+    "clean": "rimraf dist/built",
+    "build": "npm run clean && webpack --config webpack/production.config.js",
+    "start": "webpack-dev-server --port 3000 --config webpack/development.config.js --progress --colors --hot --content-base dist"
+  },
+  "author": "Carl Whittick",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlwhittick/es6-illuminated/"
+  },
+  "license": "GNU",
+  "engines": {
+    "node": ">= 5.0.0",
+    "npm": ">= 3.3.6"
+  },
+  "devDependencies": {
+    "babel": "^6.0.15",
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.1.2",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.1.2",
+    "babel-preset-react": "^6.1.2",
+    "rimraf": "^2.5.0",
+    "webpack": "^1.12.3",
+    "webpack-dev-server": "^1.12.1",
+    "webpack-merge": "^0.7.3"
+  },
+  "dependencies": {}
+}

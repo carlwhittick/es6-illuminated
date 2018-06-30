@@ -1,5 +1,6 @@
 import babel from 'rollup-plugin-babel'
 import eslint from 'rollup-plugin-eslint'
+import { uglify } from 'rollup-plugin-uglify'
 
 export default {
     entry: './src/illuminated.js',
@@ -13,6 +14,7 @@ export default {
         eslint(),
         babel({
             exclude: 'node_modules/**'
-        })
+        }),
+        uglify()
     ]
 }

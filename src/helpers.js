@@ -3,6 +3,12 @@ import Vec2 from './Vec2.js'
 export const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5))
 export const _2PI = 2 * Math.PI
 
+/**
+ * Draw a path defined by the given points onto the given ctx.
+ * @param {CanvasRenderingContext2D} ctx The context onto which the properties should be drawn.
+ * @param {Array} points An array of Vec2 objects that define the path.
+ * @param {Boolean} dontJoinLast True if the last point should joined with the first point in the path.
+ */
 function path(ctx, points, dontJoinLast) {
     var p = points[0]
     ctx.moveTo(p.x, p.y)
@@ -16,6 +22,12 @@ function path(ctx, points, dontJoinLast) {
     }
 }
 
+/**
+ * Creates a canvas and context with the given width and height.
+ * @param {Number} w Width of the canvas context.
+ * @param {Number} h Height of the canvas context.
+ * @return {Object} An anonymous object with "canvas", "ctx", "w" and "h"
+ */
 function createCanvasAnd2dContext(id, w, h) {
     var iid = 'illujs_' + id
     var canvas = document.getElementById(iid)
@@ -43,6 +55,12 @@ function createCanvasAnd2dContext(id, w, h) {
     }
 }
 
+/**
+ * Converts a CSS color string into RGBA format.
+ * @param {String} color Color in any CSS format.
+ * @param {Number} alpha Alpha value for produced color.
+ * @return {String} Color in RGBA format.
+ */
 var getRGBA = (function () {
     //var ctx = createCanvasAnd2dContext('grgba', 1, 1)
     var canvas = document.createElement('canvas')
@@ -58,6 +76,11 @@ var getRGBA = (function () {
     }
 }())
 
+/**
+ * Get tangents from (0,0) to circle of radius with given center, for DiscObject.cast
+ * @param {Number} radius 
+ * @param {Number} center 
+ */
 function getTan2(radius, center) {
     var epsilon = getTan2.epsilon || 1e-6, // constant
         x0, y0, len2, soln,

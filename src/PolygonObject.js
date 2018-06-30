@@ -2,16 +2,35 @@ import Vec2 from './Vec2.js'
 import { path } from './helpers.js'
 import OpaqueObject from './OpaqueObject.js'
 
+/**
+ * An opaque polygon object
+ */
 class PolygonObject extends OpaqueObject {
+    /**
+     * Create a new PolygonObject instance.
+     * @param {Object} options Options to be applied to the PolygonObject
+     */
     constructor(options) {
         super()
         const defaults = {
+            /**
+             * An array of Vec2 points that
+             * define the polygon.
+             * @property points
+             * @type Array
+             * @default []
+             */
             points: []
         }
         this.options = Object.assign(defaults, this.options)
         this.options = Object.assign(this.options, options)
     }
 
+    /**
+     * Calculate the boundaries of this polygon object.
+     * @return {Object} An anonymous object with properties topleft and bottom right representing
+     *                  the corners of the boundary.
+     */
     bounds() {
         var topleft = this.options.points[0].copy()
         var bottomright = topleft.copy()
@@ -32,6 +51,11 @@ class PolygonObject extends OpaqueObject {
         }
     }
 
+    /**
+     * Determine if the given point is inside the polygon.
+     * @param {Vec2} p The point to be checked.
+     * @return {Boolean} True if the polygon object contains the given point.
+     */
     contains(p) {
         var points = this.options.points
         var i, l = points.length,
@@ -53,10 +77,22 @@ class PolygonObject extends OpaqueObject {
         return oddNodes
     }
 
+    /**
+     * Draw the path of the polygon onto the ctx.
+     * @param {CanvasRenderContext2D} ctx The context onto which the path will be drawn.
+     */
     path(ctx) {
         path(ctx, this.options.points)
     }
 
+    /**
+     * Fill provided context with the shadows projected by this polygon object from the origin
+     * point, constrained by the given bounds.
+     * @param {CanvasRenderContext2D} ctx The canvas context onto which the shadows will be cast.
+     * @param {Vec2} origin A vector that represents the origin for the casted shadows.
+     * @param {Object} bounds An anonymous object with properties topleft and bottom right representing
+     *                        the corners of the boundary.
+     */
     cast(ctx, origin, bounds) {
         // The current implementation of projection is a bit hacky... do you have a proper solution?
         var distance = ((bounds.bottomright.x - bounds.topleft.x) + (bounds.bottomright.y - bounds.topleft.y)) / 2
@@ -85,6 +121,13 @@ class PolygonObject extends OpaqueObject {
         })
     }
 
+    /**
+     * Invoke a function for each of the visible edges in this polygon.
+     * @param {Vec2} origin A vector that represents the origin for the casted shadows.
+     * @param {Object} bounds An anonymous object with properties topleft and bottom right representing
+     *                        the corners of the boundary.
+     * @param {Function} f The function to be called.
+     */
     _forEachVisibleEdges(origin, bounds, f) {
         var a = this.options.points[this.options.points.length - 1],
             b

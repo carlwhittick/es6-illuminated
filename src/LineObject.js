@@ -1,4 +1,5 @@
 import PolygonObject from './PolygonObject.js'
+import Vec2 from './Vec2.js'
 
 class LineObject extends PolygonObject {
     constructor(options) {
@@ -9,7 +10,7 @@ class LineObject extends PolygonObject {
         }
         this.options = Object.assign(defaults, this.options)
         this.options = Object.assign(this.options, options)
-        console.log(this.options)
+        
         this.syncFromAB()
     }
 

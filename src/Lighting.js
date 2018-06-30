@@ -23,14 +23,13 @@ class Lighting {
         var ctx = c.ctx
         ctx.clearRect(0, 0, c.w, c.h)
         // Draw shadows for each light sample and objects
-        ctx.fillStyle = "rgba(0,0,0," + Math.round(100 / n) / 100 + ")" // Is there any better way?
+        ctx.fillStyle = 'rgba(0,0,0,' + Math.round(100 / n) / 100 + ')' // Is there any better way?
         var bounds = light.bounds()
         var objects = this.options.objects
         light.forEachSample(function (position) {
-            var sampleInObject = false
             for (var o = 0, l = objects.length; o < l; ++o) {
                 if (objects[o].contains(position)) {
-                    ctx.fillRect(bounds.topleft.x, bounds.topleft.y, bounds.bottomright.x - bounds.topleft.x, bounds.bottomright.y - bounds.topleft.y);
+                    ctx.fillRect(bounds.topleft.x, bounds.topleft.y, bounds.bottomright.x - bounds.topleft.x, bounds.bottomright.y - bounds.topleft.y)
                     return
                 }
             }
@@ -42,7 +41,7 @@ class Lighting {
         objects.forEach(function (object) {
             var diffuse = object.diffuse === undefined ? 0.8 : object.diffuse
             diffuse *= light.diffuse
-            ctx.fillStyle = "rgba(0,0,0," + (1 - diffuse) + ")"
+            ctx.fillStyle = 'rgba(0,0,0,' + (1 - diffuse) + ')'
             ctx.beginPath()
             object.path(ctx)
             ctx.fill()
@@ -59,7 +58,7 @@ class Lighting {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
         light.render(ctx)
-        ctx.globalCompositeOperation = "destination-out"
+        ctx.globalCompositeOperation = 'destination-out'
         this.cast(ctx)
         ctx.restore()
     }

@@ -1,4 +1,5 @@
 import Vec2 from './Vec2.js'
+import { createCanvasAnd2dContext } from './helpers.js'
 
 class Light {
     constructor(options) {
@@ -10,7 +11,7 @@ class Light {
         this.options = Object.assign(defaults, options)
     }
 
-    render(ctx) {}
+    render() {}
 
     mask(ctx) {
         var c = this._getVisibleMaskCache()
@@ -38,7 +39,7 @@ class Light {
 
     _getVisibleMaskCache() {
         var d = Math.floor(this.options.distance * 1.4)
-        var hash = "" + d
+        var hash = '' + d
         if (this.vismaskhash != hash) {
             this.vismaskhash = hash
             var c = this._vismaskcache = createCanvasAnd2dContext('vm' + this.id, 2 * d, 2 * d)

@@ -1,3 +1,5 @@
+import Vec2 from './Vec2.js'
+
 class OpaqueObject {
     constructor(options) {
         const defaults = {
@@ -7,9 +9,9 @@ class OpaqueObject {
         this.uniqueId = 0
     }
 
-    cast(ctx, origin, bounds) {}
+    cast() {}
 
-    path(ctx) {}
+    path() {}
 
     bounds() {
         return {
@@ -18,7 +20,7 @@ class OpaqueObject {
         }
     }
 
-    contains(point) {
+    contains() {
         return false
     }
 }

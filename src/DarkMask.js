@@ -1,3 +1,5 @@
+import createCanvasAnd2dContext from './helpers.js'
+
 class DarkMask {
     constructor(options) {
         const defaults = {
@@ -6,7 +8,6 @@ class DarkMask {
         }
         this.options = Object.assign(defaults, this.options)
         this.options = Object.assign(this.options, options)
-        console.log(this.options)
     }
 
     compute(w, h) {
@@ -17,7 +18,7 @@ class DarkMask {
         ctx.clearRect(0, 0, w, h)
         ctx.fillStyle = this.color
         ctx.fillRect(0, 0, w, h)
-        ctx.globalCompositeOperation = "destination-out"
+        ctx.globalCompositeOperation = 'destination-out'
         this.options.lights.forEach(function (light) {
             light.mask(ctx)
         })
@@ -28,7 +29,7 @@ class DarkMask {
         ctx.drawImage(this._cache.canvas, 0, 0)
     }
 
-    getCanvas(ctx) {
+    getCanvas() {
         return this._cache.canvas
     }
 }

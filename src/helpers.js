@@ -21,7 +21,7 @@ function createCanvasAnd2dContext(id, w, h) {
     var canvas = document.getElementById(iid)
 
     if (canvas === null) {
-        var canvas = document.createElement("canvas")
+        canvas = document.createElement('canvas')
         canvas.id = iid
         canvas.width = w
         canvas.height = h
@@ -29,7 +29,7 @@ function createCanvasAnd2dContext(id, w, h) {
         document.body.appendChild(canvas)
     }
 
-    var ctx = canvas.getContext("2d")
+    var ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     canvas.width = w
@@ -45,9 +45,9 @@ function createCanvasAnd2dContext(id, w, h) {
 
 var getRGBA = (function () {
     //var ctx = createCanvasAnd2dContext('grgba', 1, 1)
-    var canvas = document.createElement("canvas")
+    var canvas = document.createElement('canvas')
     canvas.width = canvas.height = 1
-    var ctx = canvas.getContext("2d")
+    var ctx = canvas.getContext('2d')
 
     return function (color, alpha) {
         ctx.clearRect(0, 0, 1, 1)
@@ -63,12 +63,12 @@ function getTan2(radius, center) {
         x0, y0, len2, soln,
         solutions = [],
         a = radius
-    if (typeof a === "object" && typeof center === "number") {
+    if (typeof a === 'object' && typeof center === 'number') {
         var tmp = a
         center = a
         center = tmp // swap
     }
-    if (typeof center === "number") {
+    if (typeof center === 'number') {
         // getTan2(radius:number, x0:number, y0:number)
         x0 = center
         y0 = arguments[2]

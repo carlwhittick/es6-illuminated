@@ -1,21 +1,52 @@
 import { createCanvasAnd2dContext } from './helpers.js'
 import Light from './Light.js'
 
+/**
+ * Defines the lighting of one light through a set of opaque objects.
+ */
 class Lighting {
+    /**
+     * Create a new instance of Lighting.
+     * @param {Object} options Options to be applied to the Lighting.
+     */
     constructor(options) {
         const defaults = {
+            /**
+             * The source of the lighting.
+             * @property light
+             * @type Light
+             * @default new Light()
+             */
             light: new Light(),
+
+            /**
+             * An array of {{#crossLink "illuminated.OpaqueObject"}}{{/crossLink}} objects
+             * which stop the light and create shadows.
+             * @property objects
+             * @type Array
+             * @default []
+             */
             objects: []
         }
         this.options = Object.assign(defaults, this.options)
         this.options = Object.assign(this.options, options)
     }
 
+    /**
+     * Create caches for canvas contexts.
+     * @param {Number} w Width of the contexts.
+     * @param {Number} h Height of the contexts.
+     */
     createCache(w, h) {
         this._cache = createCanvasAnd2dContext('lc', w, h)
         this._castcache = createCanvasAnd2dContext('lcc', w, h)
     }
 
+    /**
+     * Draw the shadows that are cast by the objects. You usually don't have to use
+     * it if you use render().
+     * @param {CanvasRenderContext2D} ctxoutput The canvas context onto which the shadows will be drawn.
+     */
     cast(ctxoutput) {
         var light = this.options.light
         var n = light.samples
@@ -49,6 +80,11 @@ class Lighting {
         ctxoutput.drawImage(c.canvas, 0, 0)
     }
 
+    /**
+     * Compute the shadows to cast.
+     * @param {Number} w Width of the canvas context.
+     * @param {Number} h Height of the canvas context.
+     */
     compute(w, h) {
         if (!this._cache || this._cache.w != w || this._cache.h != h)
             this.createCache(w, h)
@@ -63,10 +99,18 @@ class Lighting {
         ctx.restore()
     }
 
+    /**
+     * Draws the light and shadows onto the given context.
+     * @param {CanvasRenderContext2D} ctx The canvas context on which to draw.
+     */
     render(ctx) {
         ctx.drawImage(this._cache.canvas, 0, 0)
     }
 
+    /**
+     * Returns the light and shadows onto the given context as canvas.
+     * @return {Canvas} The picture of the light and shadow.
+     */
     getCanvas() {
         return this._cache.canvas
     }
